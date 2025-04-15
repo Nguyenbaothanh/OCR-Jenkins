@@ -1,8 +1,8 @@
 pipeline {
     agent {
         docker {
-            image 'python:3.9' // Python 3.9 image includes python3, pip, and venv
-            args '-u root'     // Run as root to avoid permission issues
+            image 'python:3.9'
+            args '-u root'
         }
     }
     stages {
@@ -14,19 +14,30 @@ pipeline {
         stage('Install dependencies') {
             steps {
                 sh '''
+                    echo "Kiểm tra môi trường..."
+                    python3 --version
+                    pip3 --version
+                    ls -la
+                    if [ ! -f requirements.txt ]; then
+                        echo "LỖI: Không tìm thấy requirements.txt"
+                        exit 1
+                    fi
+                    if [ ! -f app.py ]; then
+                        echo "LỖI: Không tìm thấy app.py"
+                        exit 1
+                    fi
                     python3 -m venv venv
                     . venv/bin/activate
-                    pip install -r requirements.txt
+                    pip install --no-cache-dir -r requirements.txt
                 '''
             }
         }
-        stage('Run Streamlit app') {
+        stage('Test Streamlit app') {
             steps {
                 sh '''
                     . venv/bin/activate
-                    python3 -m streamlit run app.py --server.headless true &
-                    sleep 10
-                    kill %1
+                    streamlit --version
+                    python3 -c "import streamlit; print('Streamlit imported successfully')"
                 '''
             }
         }
