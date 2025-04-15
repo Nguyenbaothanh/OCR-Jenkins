@@ -5,6 +5,16 @@ import os
 import csv
 from io import StringIO
 
+# 👉 Thêm đoạn này để ẩn header khi nhúng iframe
+st.markdown("""
+    <style>
+    header[data-testid="stHeader"] {
+        display: none !important;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+# 📎 Đường dẫn đến Google Sheets chứa URL API
 CSV_URL = "https://docs.google.com/spreadsheets/d/15Los4GBwCHjiOm9TL-e3UwD7rnZ73rlzzcJo4EpOs24/gviz/tq?tqx=out:csv"
 
 def get_api_url_from_csv():
