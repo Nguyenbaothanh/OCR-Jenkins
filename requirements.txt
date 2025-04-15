@@ -120,3 +120,8 @@ wcwidth==0.2.13
 webcolors==24.11.1
 webencodings==0.5.1
 websocket-client==1.8.0
+streamlit==1.31.0
+pandas==2.2.3
+numpy==2.2.4
+pillow==11.1.0
+# Thêm các gói khác mà app.py thực sự cần
