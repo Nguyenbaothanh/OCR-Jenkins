@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Clone source') {
             steps {
-                git 'https://github.com/Nguyenbaothanh/OCR-Jenkins.git'
+                git branch: 'main', url: 'https://github.com/Nguyenbaothanh/OCR-Jenkins.git'
             }
         }
 
